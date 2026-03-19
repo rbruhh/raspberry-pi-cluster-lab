@@ -47,7 +47,11 @@ Router → Switch → Raspberry Pi Nodes
   * pi-storage
 * Connected nodes through a network switch
 * Verified SSH connectivity via hostname
-* 
+- Built a multi-node Kubernetes (k3s) cluster using Raspberry Pi devices
+- Configured a dedicated storage node with NFS-backed persistent volumes
+- Integrated Kubernetes PersistentVolume and PersistentVolumeClaim for shared storage
+- Deployed and troubleshot a stateful Grafana application with persistent storage
+- Resolved NFS mount failures and container permission issues across nodes
 
 ### In Progress
 
