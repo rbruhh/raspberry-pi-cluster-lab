@@ -42,10 +42,12 @@ Router → Switch → Raspberry Pi Nodes
 * Enabled SSH access
 * Configured static hostnames:
 
-  * pi-template
+  * pi-control
+  * pi-worker
   * pi-storage
 * Connected nodes through a network switch
 * Verified SSH connectivity via hostname
+* 
 
 ### In Progress
 
