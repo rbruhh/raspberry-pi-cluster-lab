@@ -1,99 +1,60 @@
-# raspberry-pi-cluster-lab
-3-node Raspberry Pi cluster simulating cloud infrastructure with Kubernetes, storage, and networking
+# Raspberry Pi Cloud Lab
 
 ## Overview
 
-This project documents the setup of a 3-node Raspberry Pi cluster designed to simulate a small cloud infrastructure environment.
+This project documents the design and implementation of a 3-node Raspberry Pi homelab built to simulate a small cloud infrastructure environment. The lab was designed to provide hands-on experience with Linux administration, Kubernetes, shared storage, monitoring, and troubleshooting across multiple networked nodes.
 
-The cluster is built using Raspberry Pi devices connected through a network switch and configured for remote access and future container orchestration.
+The environment includes a Kubernetes control plane, a worker node for running workloads, and a dedicated storage node that provides NFS-backed persistent storage. Monitoring and observability were added using Prometheus, Node Exporter, and Grafana.
+
+This project was built as part of a hands-on cloud engineering learning path and is intended to demonstrate practical infrastructure skills in a home environment.
+
+---
+
+## Objectives
+
+- Build a multi-node Raspberry Pi infrastructure cluster
+- Deploy lightweight Kubernetes using k3s
+- Configure persistent shared storage using NFS
+- Deploy and expose containerized workloads
+- Implement observability using Prometheus and Grafana
+- Configure alerting for basic node health conditions
+- Document architecture, deployment steps, and troubleshooting
 
 ---
 
 ## Hardware
 
-* 3 × Raspberry Pi 4
-* 1 × Network switch
-* 1 × 60W USB power supply
-* 3 × microSD cards
-* 1 × 512GB USB flash drive (storage node)
-* Ethernet cables
-
----
-
-## Network Architecture
-
-Router → Switch → Raspberry Pi Nodes
+- 3 × Raspberry Pi 4
+- 1 × Raspberry Pi cluster rack
+- 1 × network switch
+- 1 × 60W multi-port power supply
+- 3 × microSD cards
+- 1 × 512GB SanDisk USB flash drive
+- Ethernet cables
+- Existing home router and Wi-Fi network
 
 ---
 
 ## Node Roles
 
-* **pi-control** → cluster control node (planned)
-* **pi-worker** → compute node (planned)
-* **pi-storage** → storage and monitoring node (planned)
+| Node Name | Role | Purpose |
+|---|---|---|
+| `pi-control` | Kubernetes control plane | Manages the cluster and Kubernetes resources |
+| `pi-worker` | Kubernetes worker node | Runs application workloads |
+| `pi-storage` | Storage node | Hosts NFS-backed persistent storage and monitoring endpoint |
 
 ---
 
-## Setup Progress
+## Current Architecture
 
-### Completed
-
-* Installed Raspberry Pi OS Lite (64-bit)
-* Enabled SSH access
-* Configured static hostnames:
-
-  * pi-control
-  * pi-worker
-  * pi-storage
-* Connected nodes through a network switch
-* Verified SSH connectivity via hostname
-- Built a multi-node Kubernetes (k3s) cluster using Raspberry Pi devices
-- Configured a dedicated storage node with NFS-backed persistent volumes
-- Integrated Kubernetes PersistentVolume and PersistentVolumeClaim for shared storage
-- Deployed and troubleshot a stateful Grafana application with persistent storage
-- Resolved NFS mount failures and container permission issues across nodes
-
-### In Progress
-
-* Bringing all nodes online simultaneously
-* Assigning final node roles
-
-### Planned
-
-* Kubernetes (k3s) cluster deployment
-* Shared storage (NFS)
-* Monitoring stack (Prometheus + Grafana)
-* Containerized workloads
-
----
-
-## Access Method
-
-SSH access is configured for all nodes:
-
-```
-ssh pi@<hostname>.local
-```
-
-Example:
-```
-ssh [pi@pi-storage.local](mailto:pi@pi-storage.local)
-```
-
----
-
-## Purpose
-
-This lab is designed to build hands-on experience with:
-
-* Linux system administration
-* Networked infrastructure
-* Distributed systems
-* Container orchestration (planned)
-* Cloud architecture concepts
-
----
-
-## Author
-
-Built as part of a personal cloud engineering learning lab.
+                    Home Router
+                         |
+                       Switch
+          -----------------------------------
+          |                |                |
+     pi-control       pi-worker        pi-storage
+   Kubernetes CP     Workloads         NFS Storage
+          |                |                |
+          |--------- Prometheus ----------->|
+          |                |
+          |------------- Grafana -----------|
