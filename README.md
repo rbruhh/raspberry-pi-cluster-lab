@@ -47,6 +47,7 @@ This project was built as part of a hands-on cloud engineering learning path and
 
 ## Current Architecture
 
+```text
                     Home Router
                          |
                        Switch
